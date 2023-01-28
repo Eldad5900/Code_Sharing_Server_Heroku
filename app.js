@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import env from "dotenv";
 import bodyParser from "body-parser";
 import userRouter from "./src/routes/user.js"
+import http from 'http';
 import { Server } from "socket.io";
 import cors from "cors";
 
@@ -20,8 +21,8 @@ db.on("error", (error) => {
 
 
 const app = express();
-const PORT = 3003;
-
+const PORT = 3004;
+const server = http.createServer(app);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -29,9 +30,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 
-const server = app.listen(process.env.PORT || PORT, () => {
-  console.log(`API Server Started at http://localhost:${PORT}/`);
-});
+
 
 
 let connectedUsers = {};
@@ -66,3 +65,6 @@ console.log("Connected & Socket Id is" , socket.id);
 })
 
 app.use("/user",userRouter);
+server.listen(process.env.PORT || PORT, () => {
+  console.log(`API Server Started at http://localhost:${PORT}/`);
+});
