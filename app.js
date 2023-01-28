@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 
-const server = app.listen(PORT, () => {
+const server = app.listen(process.env.PORT || PORT, () => {
   console.log(`API Server Started at http://localhost:${PORT}/`);
 });
 
