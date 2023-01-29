@@ -34,7 +34,7 @@ app.use(cors());
 
 
 let connectedUsers = {};
-const io = new Server(server)
+const io = new Server(process.env.PORT || server)
 
 io.on("connection", (socket)=>{  
  
